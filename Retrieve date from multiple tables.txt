@@ -1,0 +1,31 @@
+﻿------------------------------------------------------------
+-- Name                : Elliot Berard
+-- Course              : IFT-300
+-- SQL Server Version  : Microsoft SQL Server 2022 (RTM)
+-- OS                  : Windows
+-- History             :
+-- Date       Comments
+-- 2/23/2025  Retrieve date from multiple tables
+------------------------------------------------------------
+USE AP;
+go
+
+
+select * 
+from Vendors
+INNER JOIN Invoices
+on Vendors.VendorID = Invoices.VendorID;
+
+
+select Vendors.VendorName, Invoices.InvoiceNumber, Invoices.InvoiceDate, (Invoices.InvoiceTotal - (Invoices.PaymentTotal + Invoices.CreditTotal)) AS Balance
+from Invoices
+INNER JOIN Vendors
+on Vendors.VendorID = Invoices.VendorID
+where (Invoices.InvoiceTotal - (Invoices.PaymentTotal + Invoices.CreditTotal)) <> 0
+order by VendorName;
+
+
+select Vendors.VendorName, Vendors.DefaultAccountNo, GLAccounts.AccountDescription
+from Vendors
+INNER JOIN GLAccounts
+on Vendors.DefaultAccountNo = GLAccounts.AccountNo;

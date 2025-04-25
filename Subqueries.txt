@@ -1,0 +1,31 @@
+﻿------------------------------------------------------------
+-- Name                : Elliot Berard
+-- Course              : IFT-300
+-- SQL Server Version  : Microsoft SQL Server 2022 (RTM)
+-- OS                  : Windows
+-- History             :
+-- Date       Comments
+-- 3/30/2025  Subqueries
+------------------------------------------------------------
+
+
+use AP;
+
+
+select distinct VendorName
+from Vendors
+where VendorID in (select VendorID from Invoices)
+order by VendorName
+
+
+select InvoiceNumber, InvoiceTotal
+from Invoices
+where PaymentTotal > (select avg(PaymentTotal) from Invoices where PaymentTotal > 0)
+
+
+select InvoiceNumber, InvoiceTotal
+from Invoices
+where PaymentTotal > all
+(select top 50 percent(PaymentTotal) from Invoices
+where PaymentTotal > 0
+order by PaymentTotal asc)

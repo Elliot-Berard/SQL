@@ -1,0 +1,27 @@
+------------------------------------------------------------
+-- Name                : Elliot Berard
+-- Course              : IFT-300
+-- SQL Server Version  : Microsoft SQL Server 2022 (RTM)
+-- OS                  : Windows
+-- History             :
+-- Date       Comments
+-- 3/30/2025  Populate Data
+------------------------------------------------------------
+
+use AP;
+
+select *
+into VendorCopy
+from Vendors
+
+select *
+into InvoiceCopy
+from Invoices
+
+insert into InvoiceCopy
+(VendorID, InvoiceTotal, TermsID, InvoiceNumber, PaymentTotal,InvoiceDueDate, InvoiceDate, CreditTotal, PaymentDate)
+values (32, 434.58, 2, 'AX-014-027', 0.00, '05/8/2023', '4/21/2023', 0.00, NULL)
+
+update VendorCopy
+set DefaultAccountNo = 403
+where DefaultAccountNo = 400

@@ -1,0 +1,42 @@
+﻿------------------------------------------------------------
+-- Name                : Elliot Berard
+-- Course              : IFT-300
+-- SQL Server Version  : Microsoft SQL Server 2022 (RTM)
+-- OS                  : Windows
+-- History             :
+-- Date       Comments
+-- 3/9/2025   Summary Queries
+------------------------------------------------------------
+
+
+use AP;
+
+
+select VendorID, SUM(PaymentTotal) AS PaymentSum
+from Invoices
+group by VendorID;
+
+
+select top 10 VendorName, SUM(PaymentTotal) AS PaymentSum
+from Invoices
+inner join Vendors
+on vendors.VendorID=Invoices.VendorID
+group by VendorName
+order by SUM(paymentTotal) desc;
+
+
+select VendorName, COUNT(InvoiceNumber) as InvoiceCount, SUM(InvoiceTotal) AS InvoiceSum
+from Invoices
+inner join Vendors
+on vendors.VendorID=Invoices.VendorID
+group by Invoices.VendorID, VendorName
+order by COUNT(InvoiceNumber) desc;
+
+
+select AccountDescription, COUNT(InvoiceLineItems.AccountNo) AS LineItemCount, SUM(InvoiceLineItemAmount) AS LineItemSum
+from GLAccounts
+inner join InvoiceLineItems
+on InvoiceLineItems.AccountNo=GLAccounts.AccountNo
+group by GLAccounts.AccountDescription
+having COUNT(InvoiceLineItems.AccountNo) > 1
+order by COUNT(InvoiceLineItems.AccountNo) desc;

@@ -1,0 +1,24 @@
+------------------------------------------------------------
+-- Name                : Elliot Berard
+-- Course              : IFT-300
+-- SQL Server Version  : Microsoft SQL Server 2022 (RTM)
+-- OS                  : Windows
+-- History             :
+-- Date       Comments
+-- 4/27/2025  Data Types
+------------------------------------------------------------
+
+use AP;
+
+select 
+cast(InvoiceTotal as decimal(10,2)) as InvoiceTotal_Decimal,
+cast(InvoiceTotal as varchar(20)) as InvoiceTotal_Varchar,
+convert(decimal(10,2), InvoiceTotal) as InvoiceTotal_ConvertedDecimal,
+convert(varchar(20), InvoiceTotal, 1) as InvoiceTotal_ConvertedVarchar
+from Invoices;
+
+select
+cast(InvoiceDate as varchar(30)) as InvoiceDate_CastVarchar,
+try_convert(varchar(30), InvoiceDate, 1) as InvoiceDate_Style1,
+try_convert(varchar(30), InvoiceDate, 10) as InvoiceDate_Style10
+from Invoices;

@@ -1,0 +1,26 @@
+/*
+** Name                : Elliot Berard
+** Course              : IFT-300
+** SQL Server Version  : Microsoft SQL Server 2022 (RTM)
+** OS                  : Windows
+** History             :
+** Date       Comments
+** 2/9/2025  Retrieve data.
+*/
+USE AP;
+
+SELECT VendorContactFName, VendorContactLName, VendorName
+FROM Vendors
+ORDER BY VendorContactLName, VendorContactFName;
+
+SELECT InvoiceNumber AS Number, InvoiceTotal AS Total, PaymentTotal + CreditTotal AS Credit, (InvoiceTotal - (PaymentTotal + CreditTotal)) AS Balance
+FROM Invoices;
+
+SELECT VendorContactLName + ', ' + VendorContactFName AS 'Full Name'
+FROM Vendors
+ORDER BY VendorContactLName, VendorContactFName;
+
+SELECT InvoiceTotal, (InvoiceTotal * 0.10) AS '10%', (InvoiceTotal * 1.1) AS 'Plus 10%'
+FROM Invoices
+WHERE (InvoiceTotal - (PaymentTotal + CreditTotal)) > 1000
+ORDER BY InvoiceTotal DESC;
